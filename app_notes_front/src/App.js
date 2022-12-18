@@ -1,4 +1,5 @@
 import './App.css';
+// import Nota from './components/Pages/FormNotas';
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
         >
           How about a magic trick?
         </a>
+        {/* <Nota></Nota> */}
       </header>
+      
     </div>
   );
 }
