@@ -28,6 +28,51 @@ class UsersApiView(APIView):
             data=users_serializer.data,
             status=status.HTTP_200_OK
         )
+
+    def post(self, request):
+        """Crea un nuevo registro"""
+
+        serializer = UserSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(
+                {'message': 'Usuario creado correctamente'},
+                status=status.HTTP_201_CREATED
+            )
+
+        return Response(
+            data=serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+   
+
+    
         
+class UsersDetailApiView(APIView):
+
+    def get(self, request, pk):
+        """Retorna un listado con todas los usuarios en la base"""
+
+        user = Users.objects.get(pk=pk)
+        user_serializer = UserSerializer(user)
+
+        return Response(
+            data=user_serializer.data,
+            status=status.HTTP_200_OK
+        )
+
+    def delete(self, request, pk):
+        """Elimina usuario"""
+
+        user = Users.objects.get(pk=pk)
+        user.delete()
+
+        return Response(
+            {'message': 'Usuario eliminado correctamente'},
+            status=status.HTTP_200_OK
+        )
 
         
